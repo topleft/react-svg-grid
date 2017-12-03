@@ -12,8 +12,21 @@ export default class Canvas extends Component {
     }
 
     createGrid() {
-        this.circles = grid.createSymetricalCirleGrid(this.paper, 5, 5, 4, 10, "#1485CC");
+        const gp = this.props.gridProperties
+        this.paper.clear();
+        this.circles = grid.createSymetricalCirleGrid(
+            this.paper, 
+            gp.itemsPerRow, 
+            gp.horizontalMargin, 
+            gp.verticalMargin, 
+            gp.radius, 
+            gp.pathColor
+        );
         grid.createShaddow(this.paper, this.circles);
+    }
+    
+    componentDidUpdate() {
+        this.createGrid();
     }
 
     render() {
