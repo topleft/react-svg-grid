@@ -38,12 +38,8 @@ export default class Canvas extends Component {
         
         const viewBox = `${x} ${y} ${width} ${height}`
 
-        const containerStyle = {
-            width: '70%'
-        }
-
         return (
-            <div style={containerStyle}>
+            <div className="canvasContainer">
                 <svg 
                     id={this.props.id} 
                     viewBox={viewBox} 

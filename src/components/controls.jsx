@@ -93,10 +93,7 @@ export default class Controls extends Component {
     render() {
 
         const controlsContainerStyle = {
-            margin: '2%',
-            padding: '26% 2px 0 2px',
             textAlign: 'center',
-            width: '14%',
             backgroundColor: '#6F1514'
         }
 
