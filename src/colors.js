@@ -1,6 +1,8 @@
 export default {
-    backgroundColorTop: '#FFFEE4',
+    backgroundTop: '#FFFEE4',
     backgroundBottom: '#CCCBB6',
-    initialPathColor: "#1485CC",
-
+    paths: "#4835E8",
+    controls: '#FF0058'
+    // initialPathColor: "#1485CC",
+    // '#6F1514'
 }

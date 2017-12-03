@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import * as grid from '../grid';
 
 export default class Canvas extends Component {
-    constructor (props) {
-        super(props)
-    }
-
+    
     componentDidMount() {
         this.paper = grid.createPaper(`#${this.props.id}`);
         this.createGrid();        

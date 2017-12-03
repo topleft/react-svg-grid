@@ -3,7 +3,7 @@ import './App.css';
 
 import Canvas from './components/canvas';
 import Controls from './components/controls';
-import Layout from './components/layout';
+// import Layout from './components/layout';
 
 import colors from './colors.js'
 
@@ -15,7 +15,7 @@ class App extends Component {
       verticalMargin: 3,
       horizontalMargin: 3,
       radius: 5,
-      pathColor: colors.initialPathColor
+      pathColor: colors.paths
     }
 
     this.updateGrid = this.updateGrid.bind(this);
@@ -31,7 +31,6 @@ class App extends Component {
 
     const containerStyle = {
       margin: '5% auto',
-      height: 'auto',
       display: 'flex',
       flexFlow: 'row wrap',
       justifyContent: 'flex-start',
@@ -45,7 +44,7 @@ class App extends Component {
           x='-50' 
           y='-60' 
           width='100'
-          height='200' 
+          height='140' 
           gridProperties={this.state}
         >
         </Canvas>

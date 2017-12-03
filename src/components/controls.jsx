@@ -23,19 +23,19 @@ export default class Controls extends Component {
             {
                 value: this.props.inputValues.itemsPerRow,
                 name: 'itemsPerRow',
-                label: 'ITEMS PER ROW',
+                label: 'PER ROW',
                 type: 'number'
             },
             {
                 value: this.props.inputValues.horizontalMargin,
                 name: 'horizontalMargin',
-                label: 'X AXIS SPACING',
+                label: 'X AXIS',
                 type: 'number'
             },
             {
                 value: this.props.inputValues.verticalMargin,
                 name: 'verticalMargin',
-                label: 'Y AXIS SPACING',
+                label: 'Y AXIS',
                 type: 'number'
             },
             {
@@ -54,6 +54,7 @@ export default class Controls extends Component {
             margin: '10px auto',
             width: '25%',
             transform: 'rotate(-7deg)',
+            textAlign: 'center'
         }
 
         const labelStyle = {
@@ -61,6 +62,7 @@ export default class Controls extends Component {
             fontSize: '12px',
             color: colors.backgroundBottom,
             transform: 'rotate(-7deg)',
+            position: 'bottom'
 
         }
 
@@ -94,7 +96,7 @@ export default class Controls extends Component {
 
         const controlsContainerStyle = {
             textAlign: 'center',
-            backgroundColor: '#6F1514'
+            backgroundColor: colors.controls
         }
 
             
