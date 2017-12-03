@@ -30,21 +30,21 @@ class App extends Component {
   render() {
 
     const containerStyle = {
-      marginTop: '20vh',
-      marginLeft: '10vh',
-      height: '80vh',
+      margin: '5% auto',
+      height: 'auto',
       display: 'flex',
       flexFlow: 'row wrap',
       justifyContent: 'flex-start',
+      maxWidth: '500px'
     }
 
     return (
       <div className="App" style={containerStyle} >
         <Canvas 
           id='svg' 
-          x='-100' 
-          y='-100' 
-          width='200'
+          x='-50' 
+          y='-60' 
+          width='100'
           height='200' 
           gridProperties={this.state}
         >

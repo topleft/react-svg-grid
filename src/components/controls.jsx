@@ -46,13 +46,14 @@ export default class Controls extends Component {
             },
         ]
         
-        const containerStyle = {
+        const inputContainerStyle = {
             marginBottom: '15px'
         }
 
         const inputStyle = {
             margin: '10px auto',
-            width: '20%',
+            width: '25%',
+            transform: 'rotate(-7deg)',
         }
 
         const labelStyle = {
@@ -60,13 +61,13 @@ export default class Controls extends Component {
             fontSize: '12px',
             color: colors.backgroundBottom,
             transform: 'rotate(-7deg)',
-            left: '-2px'
+
         }
 
         return inputs.map((input, i) => {
 
             return (
-                <div key={i} style={containerStyle}>
+                <div key={i} style={inputContainerStyle}>
                     <label 
                     htmlFor="itemsPerRow"
                     style={labelStyle}
@@ -91,15 +92,17 @@ export default class Controls extends Component {
 
     render() {
 
-        const containerStyle = {
-            margin: '20px',
-            paddingTop: '20vh',
-            textAlign: 'center'
+        const controlsContainerStyle = {
+            margin: '2%',
+            padding: '26% 2px 0 2px',
+            textAlign: 'center',
+            width: '14%',
+            backgroundColor: '#6F1514'
         }
 
             
         return (
-            <div style={containerStyle}>
+            <div className="controlsContainer" style={controlsContainerStyle}>
                 {this.getInputs()}
             </div>
         )

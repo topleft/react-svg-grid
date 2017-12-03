@@ -34,7 +34,7 @@ Explore testing components
 Make responsive
 
 1. make a canvas component that will display svg
-
+2. move inupts underneath canvas at 480px
 
 #### Phase Three:
 

@@ -32,19 +32,24 @@ export default class Canvas extends Component {
     render() {
 
         const x = this.props.x || -100;
-        const y = this.props.y || -100;
+        const y = this.props.y || -60;
         const width = this.props.width || 200;
         const height = this.props.height || 200;
         
         const viewBox = `${x} ${y} ${width} ${height}`
 
         const containerStyle = {
-            width: '60%'
+            width: '70%'
         }
 
         return (
             <div style={containerStyle}>
-                <svg id={this.props.id} viewBox={viewBox}></svg>
+                <svg 
+                    id={this.props.id} 
+                    viewBox={viewBox} 
+                    style={{overflow: 'visible'}}
+                >
+                </svg>
             </div>
         );
     }
