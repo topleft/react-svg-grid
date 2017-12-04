@@ -54,7 +54,8 @@ export default class Controls extends Component {
             margin: '10px auto',
             width: '25%',
             transform: 'rotate(-7deg)',
-            textAlign: 'center'
+            textAlign: 'center',
+            backgroundColor: 'rgba(255,255,255, 0.2)',
         }
 
         const labelStyle = {

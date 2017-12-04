@@ -47,7 +47,7 @@ class App extends Component {
 
     return (
       <div>
-        <div className="titleContainer" style={titleContainer}>MY FIRST SVG</div>
+        <div className="titleContainer" style={titleContainer}>{'FRONT END'}</div>
         <div className="App" style={containerStyle} >
           <Canvas 
             id='svg' 
