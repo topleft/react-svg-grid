@@ -23,8 +23,9 @@ export default class Canvas extends Component {
             gp.pathColor,
             0.5
         )
-        symetricalGrid.createSymetricalCirleGrid()
-        grid.createShaddow(this.paper, this.set);
+        symetricalGrid.createGrid()
+        symetricalGrid.createShadow()
+        // grid.createShaddow(this.paper, this.set);
     }
     
     componentDidUpdate() {
