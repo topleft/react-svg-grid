@@ -41,7 +41,7 @@ class App extends Component {
       width: '100%',
       color: colors.title,
       position: 'absolute',
-      textShadow: `${colors.titleShadow} -4px 3px 2px`,
+      textShadow: `${colors.titleShadow} -4px 4px 4px, #000 -4px 3px 3px`,
       backgroundColor: 'rgba(260, 260, 264, 0.6)'
     }
 

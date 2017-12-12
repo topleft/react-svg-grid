@@ -2,24 +2,31 @@ import React, { Component } from 'react';
 import * as grid from '../grid';
 
 export default class Canvas extends Component {
-    
+
     componentDidMount() {
         this.paper = grid.createPaper(`#${this.props.id}`);
+        this.set = grid.createSet();
         this.createGrid();        
     }
 
     createGrid() {
         const gp = this.props.gridProperties
         this.paper.clear();
-        this.circles = grid.createSymetricalCirleGrid(
+        
+        const symetricalGrid = new grid.SymetricalCircleGrid(
             this.paper, 
+            this.set, 
             gp.itemsPerRow, 
             gp.horizontalMargin, 
             gp.verticalMargin, 
             gp.radius, 
-            gp.pathColor
-        );
-        grid.createShaddow(this.paper, this.circles);
+            gp.pathColor,
+            0.5
+        )
+        symetricalGrid.createGrid()
+        symetricalGrid.createShadow()
+        symetricalGrid.markCenter()
+        // grid.createShaddow(this.paper, this.set);
     }
     
     componentDidUpdate() {

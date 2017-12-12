@@ -42,7 +42,8 @@ export default class Controls extends Component {
                 value: this.props.inputValues.radius,
                 name: 'radius',
                 label: 'RADIUS',
-                type: 'number'
+                type: 'number',
+                min: 1
             },
         ]
         
@@ -83,6 +84,7 @@ export default class Controls extends Component {
                         value={input.value}
                         name={input.name}
                         type={input.type}
+                        min={input.min || ""}
                     >
                     </input>
                 </div>
