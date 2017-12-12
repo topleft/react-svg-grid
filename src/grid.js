@@ -144,6 +144,15 @@ export class SymetricalCircleGrid {
         });
     }
     
+    markCenter() {
+        const center = this.paper.circle(0,0,.25);
+        center.attr({
+          stroke: "#E9483B",
+          strokeWidth: 0.5,
+          fillOpacity: 0
+        })
+    }
+    
     parseAndCheckIntArg (arg, argName) {
         const num = parseInt(arg, 10);
         if (typeof num !== 'number' || isNaN(num))
@@ -160,14 +169,3 @@ export class SymetricalCircleGrid {
     }
 
 }
-
-
-// circle grid with shadow
-
-// // uncomment if you need the center point o the paper
-// const center = patternPaper.circle(0,0,.25);
-// center.attr({
-//   stroke: "#E9483B",
-//   strokeWidth: .5,
-//   fillOpacity: 0
-// })
