@@ -1,5 +1,15 @@
+import Path from './path';
 const Snap = window.Snap;
 
+Snap.plugin( function( Snap, Element, Paper, global ) {
+    Paper.prototype.circlePath = function(cx,cy,r) {
+    var p = "M" + cx + "," + cy;
+    p += "m" + -r + ",0";
+    p += "a" + r + "," + r + " 0 1,0 " + (r*2) +",0";
+    p += "a" + r + "," + r + " 0 1,0 " + -(r*2) + ",0";
+    return this.path(p, cx, cy);
+            };
+});
 
 export function createPaper(selector) {
     return Snap(selector);
@@ -34,6 +44,7 @@ export class SymetricalCircleGrid {
         this._radius = this.parseAndCheckIntArg(radius, 'radius');
         this._strokeWidth = this.parseAndCheckFloatArg(strokeWidth, 'strokeWidth');
         this._strokeColor = strokeColor; // TODO need to right color checker
+        this._delay = 200
 
     }
 
@@ -101,6 +112,14 @@ export class SymetricalCircleGrid {
         return this._shadowColor || '#555';
     }
 
+    getCirclePathData(cx,cy, r) {
+        var p = "M" + cx + "," + cy;
+        p += "m" + -r + ",0";
+        p += "a" + r + "," + r + " 0 1,0 " + (r*2) +",0";
+        p += "a" + r + "," + r + " 0 1,0 " + -(r*2) + ",0";
+        return p;
+    };
+
     createGrid() {
 
         let x = this.xOrigin;
@@ -113,34 +132,51 @@ export class SymetricalCircleGrid {
                 y += this._vMargin;
             }
             const calculated_x = x + (this._hMargin * (i % this._circlesPerRow));
-            const c = this.paper.circle(calculated_x, y, this._radius)
-            c.attr({
-                stroke: this._strokeColor,
-                strokeWidth: this._strokeWidth,
-                fillOpacity: 0,
+            const p = this.getCirclePathData(calculated_x, y, this._radius)
+            const c = new Path({
+              data: p,
+              strokeColor: this._strokeColor,
+              strokeWidth: this._strokeWidth,
+              timeout: i * this._delay,
+              y,
+              x: calculated_x,
+              r: this._radius
             })
-            this.set.push(c);
+            c.instantiatePath(this.paper)
+            c.trace(this.paper)
+            this.set.push(c.instantiatedPath);
         }
         
     }
 
     createShadow() {
         this.shadow = this.set.clone()
-        this.shadow.items.forEach((c, i) => {
-    
+        this.shadow.items.forEach((originalPath, i) => {
+            let x = Snap.path.toRelative(originalPath)[0][1]
+            let y = Snap.path.toRelative(originalPath)[0][2]
+
             if (!((i) % this._circlesPerRow)) {
-                this.shadowOffset += c.attr('r') / 100 // increase diameter to give depth to shadow
+                this.shadowOffset += this._radius / 100 // increase diameter to give depth to shadow
             }
-            const newRadius = (parseInt(c.attr('r'), 10) * this.shadowOffset) + parseInt(c.attr('r'), 10)
-            const newX = (parseInt(c.attr('cx'), 10) * this.shadowOffset) + parseInt(c.attr('cx'), 10)
- 
-            c.attr({
-                cx: newX,
-                r: newRadius,
+            const newRadius = (parseInt(this._radius, 10) * this.shadowOffset) + parseInt(this._radius, 10)
+            const newX = (parseInt(x, 10) * this.shadowOffset) + parseInt(x, 10)
+            const p = this.getCirclePathData(newX, y + 60, newRadius)
+            const c = new Path({
+              data: p,
+              strokeColor: this.shadowColor,
+              strokeWidth: this._strokeWidth,
+              timeout: i * this._delay,
+              y,
+              x: newX,
+              r: this._radius
+            })
+            c.instantiatePath(this.paper)
+            c.instantiatedPath.attr({
                 transform: "t0 50s",
                 strokeOpacity: .5,
                 stroke: this.shadowColor,
             });
+            c.trace(this.paper)
         });
     }
     

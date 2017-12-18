@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="controlsContainer"
+  style={
+    Object {
+      "backgroundColor": "#FF0058",
+      "textAlign": "center",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "marginBottom": "15px",
+      }
+    }
+  >
+    <label
+      htmlFor="itemsPerRow"
+      style={
+        Object {
+          "color": "#CCCBB6",
+          "display": "block",
+          "fontSize": "12px",
+          "position": "bottom",
+          "transform": "rotate(-7deg)",
+        }
+      }
+    >
+      PER ROW
+    </label>
+    <input
+      min=""
+      name="itemsPerRow"
+      onChange={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(255,255,255, 0.2)",
+          "margin": "10px auto",
+          "textAlign": "center",
+          "transform": "rotate(-7deg)",
+          "width": "25%",
+        }
+      }
+      type="number"
+      value={undefined}
+    />
+  </div>
+  <div
+    style={
+      Object {
+        "marginBottom": "15px",
+      }
+    }
+  >
+    <label
+      htmlFor="itemsPerRow"
+      style={
+        Object {
+          "color": "#CCCBB6",
+          "display": "block",
+          "fontSize": "12px",
+          "position": "bottom",
+          "transform": "rotate(-7deg)",
+        }
+      }
+    >
+      X AXIS
+    </label>
+    <input
+      min=""
+      name="horizontalMargin"
+      onChange={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(255,255,255, 0.2)",
+          "margin": "10px auto",
+          "textAlign": "center",
+          "transform": "rotate(-7deg)",
+          "width": "25%",
+        }
+      }
+      type="number"
+      value={undefined}
+    />
+  </div>
+  <div
+    style={
+      Object {
+        "marginBottom": "15px",
+      }
+    }
+  >
+    <label
+      htmlFor="itemsPerRow"
+      style={
+        Object {
+          "color": "#CCCBB6",
+          "display": "block",
+          "fontSize": "12px",
+          "position": "bottom",
+          "transform": "rotate(-7deg)",
+        }
+      }
+    >
+      Y AXIS
+    </label>
+    <input
+      min=""
+      name="verticalMargin"
+      onChange={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(255,255,255, 0.2)",
+          "margin": "10px auto",
+          "textAlign": "center",
+          "transform": "rotate(-7deg)",
+          "width": "25%",
+        }
+      }
+      type="number"
+      value={undefined}
+    />
+  </div>
+  <div
+    style={
+      Object {
+        "marginBottom": "15px",
+      }
+    }
+  >
+    <label
+      htmlFor="itemsPerRow"
+      style={
+        Object {
+          "color": "#CCCBB6",
+          "display": "block",
+          "fontSize": "12px",
+          "position": "bottom",
+          "transform": "rotate(-7deg)",
+        }
+      }
+    >
+      RADIUS
+    </label>
+    <input
+      min={1}
+      name="radius"
+      onChange={[Function]}
+      style={
+        Object {
+          "backgroundColor": "rgba(255,255,255, 0.2)",
+          "margin": "10px auto",
+          "textAlign": "center",
+          "transform": "rotate(-7deg)",
+          "width": "25%",
+        }
+      }
+      type="number"
+      value={undefined}
+    />
+  </div>
+</div>
+`;

@@ -35,7 +35,6 @@ Explore testing components ~~ !!
 
 1. make a canvas component that will display svg √
 1. move inupts underneath canvas at 500px width √
-1. set a min height and turn on scrolling when met
 
 #### Phase Three:
 
@@ -43,7 +42,7 @@ Allow user input √
 Animate Grid changes
 
 1. user input √
-2. lock down inputs to only allow valid entries (radius can't be negative)
+2. lock down inputs to only allow valid entries (radius can't be negative) √
 3. create a draw button that draws the circle grid
 
 #### Phase Four: 
