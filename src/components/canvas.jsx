@@ -25,8 +25,6 @@ export default class Canvas extends Component {
         )
         symetricalGrid.createGrid()
         symetricalGrid.createShadow()
-        symetricalGrid.markCenter()
-        // grid.createShaddow(this.paper, this.set);
     }
     
     componentDidUpdate() {
