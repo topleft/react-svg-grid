@@ -28,6 +28,12 @@ export default class Canvas extends Component {
     }
     
     componentDidUpdate() {
+        // because the state is tied to the input value
+        // and we want to allow for "" in the input
+        // we catch undefined values here
+        const gp = this.props.gridProperties;        
+        const areAllValuesDefined = Object.values(gp).every((val) => !!val || val === 0);
+        if (!areAllValuesDefined) return;
         this.createGrid();
     }
 

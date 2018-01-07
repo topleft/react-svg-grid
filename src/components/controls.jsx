@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import colors from '../colors.js'; 
+import colors from '../colors'; 
 
 export default class Controls extends Component {
     
@@ -8,14 +8,34 @@ export default class Controls extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    
-
     handleChange(e) {
         const key = e.target.name;
-        const value = e.target.value;
-        const change = {};
-        change[key] = value;
-        this.props.handleChange(change);
+        // allow for emtpy string value
+        const value = e.target.value === "" ? "" : parseInt(e.target.value) ;
+        const validationResult = this.validator(key, value);
+        if (validationResult.isValid) {
+            const change = {};
+            change[key] = value;
+            this.props.handleChange(change);
+        } else {
+            alert(validationResult.errorMessage);
+        }
+    }
+
+    validator(input, value) {
+        switch (input) {
+            case "radius":
+            case "itemsPerRow":
+                // allow for empty string values
+                if (!value && value !== 0) {
+                    return { isValid: true }   
+                }
+                const isValid = parseInt(value) > 0;
+                const errorMessage = isValid ? null : `Value must be greater than 0`;
+                return { isValid, errorMessage };
+            default:
+                return { isValid: true };
+        } 
     }
 
     getInputs() {
@@ -92,11 +112,10 @@ export default class Controls extends Component {
 
         })
 
-
     }
 
     render() {
-
+        
         const controlsContainerStyle = {
             textAlign: 'center',
             backgroundColor: colors.controls

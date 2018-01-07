@@ -3,6 +3,7 @@ import './App.css';
 
 import Canvas from './components/canvas';
 import Controls from './components/controls';
+import CustomAlert from './components/customAlert';
 // import Layout from './components/layout';
 
 import colors from './colors.js'
@@ -37,7 +38,7 @@ class App extends Component {
       maxWidth: '500px'
     }
 
-    const titleContainer = {
+    const titleContainerStyle = {
       width: '100%',
       color: colors.title,
       position: 'absolute',
@@ -47,7 +48,7 @@ class App extends Component {
 
     return (
       <div>
-        <div className="titleContainer" style={titleContainer}>{'FRONT END'}</div>
+        <div className="titleContainer" style={titleContainerStyle}>{'FRONT END'}</div>
         <div className="App" style={containerStyle} >
           <Canvas 
             id='svg' 
