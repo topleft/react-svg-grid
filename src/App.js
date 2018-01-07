@@ -16,18 +16,26 @@ class App extends Component {
       verticalMargin: 4,
       horizontalMargin: 4,
       radius: 5,
-      pathColor: colors.paths
+      pathColor: colors.paths,
+      isAlertShown: false,
+      alertMessage: null,
+      alertType: null
     }
 
     this.updateGrid = this.updateGrid.bind(this);
+    this.showAlert = this.showAlert.bind(this);
 
   }
   
   updateGrid(gridProperties) {
     this.setState(gridProperties)
   }
-    
 
+  showAlert(alertConfig) {
+    this.setState({isAlertShown: true, ...alertConfig})
+    setTimeout(() => this.setState({isAlertShown: false}), alertConfig.timeout || 3000)
+  }
+    
   render() {
 
     const containerStyle = {
@@ -53,6 +61,21 @@ class App extends Component {
       radius: this.state.radius,
     }
     
+    const alertConfig = {
+      message: this.state.alertMessage,
+      type: this.state.alertType
+    }
+
+    const gridProperties = {
+      itemsPerRow: this.state.itemsPerRow,
+      verticalMargin: this.state.verticalMargin,
+      horizontalMargin: this.state.horizontalMargin,
+      radius: this.state.radius,
+      pathColor: colors.paths,
+    }
+
+    console.log(gridProperties)
+
     return (
 
       <div>
@@ -64,10 +87,11 @@ class App extends Component {
             y='-60' 
             width='100'
             height='140' 
-            gridProperties={this.state}
+            gridProperties={gridProperties}
           >
           </Canvas>
-          <Controls handleChange={this.updateGrid} inputValues={inputValues}></Controls>
+          <Controls handleChange={this.updateGrid} inputValues={inputValues} updateAlert={this.showAlert}></Controls>
+          <CustomAlert isShown={this.state.isAlertShown} config={alertConfig}></CustomAlert>
         </div>
       </div>
     );

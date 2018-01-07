@@ -4,7 +4,21 @@ export default {
     paths: "#4835E8",
     controls: '#FF0058',
     title: '#E7FF2D',
-    titleShadow: '#0DFFE5'
+    titleShadow: '#0DFFE5',
+    alert: {
+        error: {
+            background: '#E7FF2D',
+            text: '#000'
+        },
+        info: {
+            background: '#0DFFE5',
+            text: '#666'
+        },
+        success: {
+            background: '#3EFF2F',
+            text: '#666'
+        }
+    }
 }
 
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import colors from '../colors'; 
+import CustomAlert from './customAlert';
 
 export default class Controls extends Component {
     
@@ -16,9 +17,10 @@ export default class Controls extends Component {
         if (validationResult.isValid) {
             const change = {};
             change[key] = value;
+            this.funAlerts(key, value);
             this.props.handleChange(change);
         } else {
-            alert(validationResult.errorMessage);
+            this.props.updateAlert({alertType: 'error', alertMessage: validationResult.errorMessage});
         }
     }
 
@@ -31,11 +33,22 @@ export default class Controls extends Component {
                     return { isValid: true }   
                 }
                 const isValid = parseInt(value) > 0;
-                const errorMessage = isValid ? null : `Value must be greater than 0`;
+                const errorMessage = isValid ? null : `Gotta be greater than 0`;
                 return { isValid, errorMessage };
             default:
                 return { isValid: true };
         } 
+    }
+
+    funAlerts(key, value) {
+        if (value === -1) {
+            this.props.updateAlert({alertType: 'info', alertMessage: 'Woah...you\'ve gone beyond' });
+        } else if (key === 'itemsPerRow') {
+            if (value === 1) {
+                this.props.updateAlert({alertType: 'success', alertMessage: 'One is the loneliest number' });
+
+            }
+        }
     }
 
     getInputs() {

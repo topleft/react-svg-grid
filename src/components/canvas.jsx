@@ -12,7 +12,6 @@ export default class Canvas extends Component {
     createGrid() {
         const gp = this.props.gridProperties
         this.paper.clear();
-        
         const symetricalGrid = new grid.SymetricalCircleGrid(
             this.paper, 
             this.set, 
