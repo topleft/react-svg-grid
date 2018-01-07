@@ -75,8 +75,7 @@ body {
 
 @media only screen and (max-width: 500px) {
   .alert {
-    width: 80%; 
-    padding-right: 5%;   
+    width: 75%; 
   }
 
 }
