@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import colors from '../colors.js'; 
+import colors from '../colors'; 
+import CustomAlert from './customAlert';
 
 export default class Controls extends Component {
     
@@ -8,14 +9,46 @@ export default class Controls extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    
-
     handleChange(e) {
         const key = e.target.name;
-        const value = e.target.value;
-        const change = {};
-        change[key] = value;
-        this.props.handleChange(change);
+        // allow for emtpy string value
+        const value = e.target.value === "" ? "" : parseInt(e.target.value) ;
+        const validationResult = this.validator(key, value);
+        if (validationResult.isValid) {
+            const change = {};
+            change[key] = value;
+            this.funAlerts(key, value);
+            this.props.handleChange(change);
+        } else {
+            this.props.updateAlert({alertType: 'error', alertMessage: validationResult.errorMessage});
+        }
+    }
+
+    validator(input, value) {
+        switch (input) {
+            case "radius":
+            case "itemsPerRow":
+                // allow for empty string values
+                if (!value && value !== 0) {
+                    return { isValid: true }   
+                }
+                const isValid = parseInt(value) > 0;
+                const errorMessage = isValid ? null : `Gotta be greater than 0`;
+                return { isValid, errorMessage };
+            default:
+                return { isValid: true };
+        } 
+    }
+
+    funAlerts(key, value) {
+        if (value === -1) {
+            this.props.updateAlert({alertType: 'info', alertMessage: 'Woah...you\'ve gone beyond' });
+        } else if (key === 'itemsPerRow') {
+            if (value === 1) {
+                this.props.updateAlert({alertType: 'success', alertMessage: 'One is the loneliest number' });
+
+            }
+        }
     }
 
     getInputs() {
@@ -24,7 +57,8 @@ export default class Controls extends Component {
                 value: this.props.inputValues.itemsPerRow,
                 name: 'itemsPerRow',
                 label: 'PER ROW',
-                type: 'number'
+                type: 'number',
+                min: 1
             },
             {
                 value: this.props.inputValues.horizontalMargin,
@@ -92,11 +126,10 @@ export default class Controls extends Component {
 
         })
 
-
     }
 
     render() {
-
+        
         const controlsContainerStyle = {
             textAlign: 'center',
             backgroundColor: colors.controls

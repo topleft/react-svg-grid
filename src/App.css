@@ -71,6 +71,15 @@ body {
   font-family: 'Roboto', sans-serif;  
 }
 
+
+
+@media only screen and (max-width: 500px) {
+  .alert {
+    width: 75%; 
+  }
+
+}
+
 @media only screen and (min-width: 500px) {
   
   .titleContainer {
@@ -99,9 +108,23 @@ body {
     min-width: 0;
     position: initial;
   }
+  
+  .alert {
+    width: none;    
+  }
 
   body {
     overflow: hidden;    
   }
+
 }
 
+@keyframes slidein {
+  from {
+    left: 0;
+  }
+  
+  to {
+    left: 20%;
+  }
+}
