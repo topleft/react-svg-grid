@@ -46,7 +46,15 @@ class App extends Component {
       backgroundColor: 'rgba(260, 260, 264, 0.6)'
     }
 
+    const inputValues = {
+      itemsPerRow: this.state.itemsPerRow,
+      verticalMargin: this.state.verticalMargin,
+      horizontalMargin: this.state.horizontalMargin,
+      radius: this.state.radius,
+    }
+    
     return (
+
       <div>
         <div className="titleContainer" style={titleContainerStyle}>{'FRONT END'}</div>
         <div className="App" style={containerStyle} >
@@ -59,7 +67,7 @@ class App extends Component {
             gridProperties={this.state}
           >
           </Canvas>
-          <Controls handleChange={this.updateGrid} inputValues={this.state}></Controls>
+          <Controls handleChange={this.updateGrid} inputValues={inputValues}></Controls>
         </div>
       </div>
     );

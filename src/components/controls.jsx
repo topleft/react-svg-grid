@@ -44,7 +44,8 @@ export default class Controls extends Component {
                 value: this.props.inputValues.itemsPerRow,
                 name: 'itemsPerRow',
                 label: 'PER ROW',
-                type: 'number'
+                type: 'number',
+                min: 1
             },
             {
                 value: this.props.inputValues.horizontalMargin,
