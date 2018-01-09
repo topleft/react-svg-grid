@@ -2,7 +2,8 @@
 
 ![circle grid picture](./readme-images/circle_grid.png)
 
-# circle-grid.petej.org
+## Live  
+### [circle-grid.petej.org](circle-grid.petej.org)
 
 ## Technologies
 - [Create React App](https://github.com/facebookincubator/create-react-app)
