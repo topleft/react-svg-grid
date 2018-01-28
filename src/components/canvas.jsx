@@ -22,7 +22,7 @@ export default class Canvas extends Component {
             gp.pathColor,
             0.5
         )
-        symetricalGrid.createGrid()
+        console.log(symetricalGrid.createGrid())
         symetricalGrid.createShadow()
     }
     
