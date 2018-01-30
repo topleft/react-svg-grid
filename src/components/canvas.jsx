@@ -6,13 +6,14 @@ export default class Canvas extends Component {
     componentDidMount() {
         this.paper = grid.createPaper(`#${this.props.id}`);
         this.set = grid.createSet();
-        this.createGrid();        
+        this.createGrid();
+        this.symmetricalGrid = this.createGrid();
     }
 
     createGrid() {
         const gp = this.props.gridProperties
         this.paper.clear();
-        const symetricalGrid = new grid.SymetricalCircleGrid(
+        const symmetricalGrid = new grid.SymmetricalCircleGrid(
             this.paper, 
             this.set, 
             gp.itemsPerRow, 
@@ -22,18 +23,21 @@ export default class Canvas extends Component {
             gp.pathColor,
             0.5
         )
-        console.log(symetricalGrid.createGrid())
-        symetricalGrid.createShadow()
+        symmetricalGrid.createGrid()
+        // symmetricalGrid.createShadow()
+        return symmetricalGrid;
     }
     
     componentDidUpdate() {
         // because the state is tied to the input value
         // and we want to allow for "" in the input
         // we catch undefined values here
+        this.symmetricalGrid.circlesPerRow = this.props.gridProperties.itemsPerRow;
         const gp = this.props.gridProperties;        
         const areAllValuesDefined = Object.values(gp).every((val) => !!val || val === 0);
         if (!areAllValuesDefined) return;
-        this.createGrid();
+        this.symmetricalGrid.adjustCirclesPerRow();
+        // this.createGrid();
     }
 
     render() {

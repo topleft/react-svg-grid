@@ -1,6 +1,5 @@
 const Snap = window.Snap;
 
-
 export function createPaper(selector) {
     return Snap(selector);
 }
@@ -10,7 +9,7 @@ export function createSet() {
 }
 
 
-export class SymetricalCircleGrid {
+export class SymmetricalCircleGrid {
 
     /**
     @paper: instance of Snap.svg Paper **already attached to the dom**
@@ -136,12 +135,21 @@ export class SymetricalCircleGrid {
         }
         return row;
     }
+    
+    addRow(index, row) {
+        this.set.splice((index * this._circlesPerRow) || 0, 0, ...row)
+    }
+    
+    addPartialRow(index, row) {
+        const spliceOrigin = (((index) * this._previousCirclesPerRow) || 0) + (this._previousCirclesPerRow);
+        this.set.splice(spliceOrigin, 0, ...row); 
+    }
 
     createGrid() {
-        this.set.clear();        
+        this.set.clear();
         for (let i = 0; i < this._circlesPerRow; i++) {
             let row = this.createRow(i);
-            this.set.splice(i*this._circlesPerRow, 0, ...row)
+            this.addRow(i, row)
         }
     }
 
@@ -162,6 +170,63 @@ export class SymetricalCircleGrid {
                 strokeOpacity: .5,
                 stroke: this.shadowColor,
             });
+        });
+    }
+
+    increaseCirclesPerRowByOne() {
+        //add circle to each row
+        this.moveGrid(this._vMargin/-2, this._hMargin/2)        
+        for (let i = parseInt(this._previousCirclesPerRow); i > 0; i--) {
+            let partialRow = [];
+            let y = this.yOrigin + (this._vMargin * (i));            
+            let x = this.xOrigin + (this._hMargin * this._previousCirclesPerRow);
+            let c = this.createCircle(x, y);
+            partialRow.push(c);
+            this.addPartialRow(i-1, partialRow);
+        }
+        // add row
+        let row = this.createRow(0)
+        this.addRow(0, row)
+    }
+
+    decreaseCirclesPerRowByOne() {
+
+        let xDelta = this._vMargin/-2
+        let yDelta = this._hMargin/-2
+        this.moveGrid(xDelta, yDelta);
+        
+        for (let i = parseInt(this._previousCirclesPerRow); i > 0; i--) {
+            const setToRemove = this.set.splice((i*(this._previousCirclesPerRow)), 1)
+            setToRemove.remove()
+        }
+        this.set.splice(0, this._previousCirclesPerRow).remove()
+        
+        
+    }
+    
+    adjustCirclesPerRow() {
+        const delta = this._circlesPerRow - this._previousCirclesPerRow;
+        if (delta === 0) {
+            return null;
+        } else if (delta > 0) {
+            for (let i = 0; i < delta; i++) {
+                this.increaseCirclesPerRowByOne()
+            }
+
+        } 
+        else {
+          this.decreaseCirclesPerRowByOne()
+        }
+    }
+
+
+
+    moveGrid(xDelta, yDelta) {
+        this.set.forEach((c) => {
+            let x = parseInt(c.attr('cx')) + xDelta
+            let y = parseInt(c.attr('cy')) + yDelta
+            c.attr('cx', x);
+            c.attr('cy', y);
         });
     }
     
