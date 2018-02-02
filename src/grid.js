@@ -25,7 +25,7 @@ export class SymmetricalCircleGrid {
 
         this.paper = paper;
         this.set = set;
-        this.shadow = null;
+        this.shadow = [];
         
         this._circlesPerRow = this.parseAndCheckIntArg(circlesPerRow, 'circlesPerRow');
         this._hMargin = this.parseAndCheckIntArg(hMargin, 'hMargin');
@@ -125,6 +125,19 @@ export class SymmetricalCircleGrid {
         return c;
     }
 
+    transformIntoShadowCircle(x, r, c) {
+        c.attr({
+            cx: x,
+            r: r,
+            stroke: this.shadowColor,
+            strokeWidth: this._strokeWidth,
+            fillOpacity: 0,
+            transform: "t0 50s",
+            strokeOpacity: .5,
+        })
+        return c;
+    }
+
     createRow(nthRow) {
         const row = [];
         let x = this.xOrigin;
@@ -154,24 +167,24 @@ export class SymmetricalCircleGrid {
     }
 
     createShadow() {
+        // if (this.shadow.length) {
+        //     console.log('remove')
+        //     this.shadow.remove()
+        //     this.shadow = [];
+        // }
         this.shadow = this.set.clone()
+        console.log(this.shadow)
         this.shadow.items.forEach((c, i) => {
     
-            if (!((i) % this._circlesPerRow)) {
+            if (!(i % this._circlesPerRow)) {
                 this.shadowOffset += c.attr('r') / 100 // increase diameter to give depth to shadow
             }
             const newRadius = (parseInt(c.attr('r'), 10) * this.shadowOffset) + parseInt(c.attr('r'), 10)
             const newX = (parseInt(c.attr('cx'), 10) * this.shadowOffset) + parseInt(c.attr('cx'), 10)
- 
-            c.attr({
-                cx: newX,
-                r: newRadius,
-                transform: "t0 50s",
-                strokeOpacity: .5,
-                stroke: this.shadowColor,
-            });
+            this.transformIntoShadowCircle(newX, newRadius, c);
         });
     }
+
 
     increaseCirclesPerRowByOne() {
         //add circle to each row

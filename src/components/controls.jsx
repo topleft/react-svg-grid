@@ -42,7 +42,7 @@ export default class Controls extends Component {
 
     funAlerts(key, value) {
         if (value === -1) {
-            this.props.updateAlert({alertType: 'info', alertMessage: 'Woah...you\'ve gone beyond' });
+            this.props.updateAlert({alertType: 'info', alertMessage: 'Woah...negatory' });
         } else if (key === 'itemsPerRow') {
             if (value === 1) {
                 this.props.updateAlert({alertType: 'success', alertMessage: 'One is the loneliest number' });

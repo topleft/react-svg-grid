@@ -24,7 +24,7 @@ export default class Canvas extends Component {
             0.5
         )
         symmetricalGrid.createGrid()
-        // symmetricalGrid.createShadow()
+        symmetricalGrid.createShadow()
         return symmetricalGrid;
     }
     
@@ -36,8 +36,10 @@ export default class Canvas extends Component {
         const gp = this.props.gridProperties;        
         const areAllValuesDefined = Object.values(gp).every((val) => !!val || val === 0);
         if (!areAllValuesDefined) return;
+        
         this.symmetricalGrid.adjustCirclesPerRow();
-        // this.createGrid();
+        this.symmetricalGrid.createShadow()
+
     }
 
     render() {
