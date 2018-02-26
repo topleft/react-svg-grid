@@ -6,6 +6,7 @@ export default class Canvas extends Component {
     componentDidMount() {
         this.paper = grid.createPaper(`#${this.props.id}`);
         this.set = grid.createSet();
+        this.shadow = grid.createSet();
         this.createGrid();
         this.symmetricalGrid = this.createGrid();
     }
@@ -16,6 +17,7 @@ export default class Canvas extends Component {
         const symmetricalGrid = new grid.SymmetricalCircleGrid(
             this.paper, 
             this.set, 
+            this.shadow, 
             gp.itemsPerRow, 
             gp.horizontalMargin, 
             gp.verticalMargin, 

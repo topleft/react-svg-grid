@@ -1,3 +1,4 @@
+
 const Snap = window.Snap;
 
 export function createPaper(selector) {
@@ -16,7 +17,7 @@ export class SymmetricalCircleGrid {
     @set: instance of a Snap.svg Set containing all sub elements of the main grid element 
     **/
 
-    constructor(paper, set, circlesPerRow, hMargin, vMargin, radius, strokeColor, strokeWidth) {
+    constructor(paper, set, shadow, circlesPerRow, hMargin, vMargin, radius, strokeColor, strokeWidth) {
         if (!(paper && paper.node))
             throw new Error('The paper argument must be an instance of Snap.svg Paper must be attached to a DOM element')
             
@@ -25,7 +26,7 @@ export class SymmetricalCircleGrid {
 
         this.paper = paper;
         this.set = set;
-        this.shadow = [];
+        this.shadow = shadow;
         
         this._circlesPerRow = this.parseAndCheckIntArg(circlesPerRow, 'circlesPerRow');
         this._hMargin = this.parseAndCheckIntArg(hMargin, 'hMargin');
@@ -125,7 +126,12 @@ export class SymmetricalCircleGrid {
         return c;
     }
 
-    transformIntoShadowCircle(x, r, c) {
+    transformIntoShadowCircle(c, i) {
+        if (!(i % this._circlesPerRow)) {
+            this.shadowOffset += c.attr('r') / 100 // increase diameter to give depth to shadow
+        }
+        const r = (parseInt(c.attr('r'), 10) * this.shadowOffset) + parseInt(c.attr('r'), 10)
+        const x = (parseInt(c.attr('cx'), 10) * this.shadowOffset) + parseInt(c.attr('cx'), 10)
         c.attr({
             cx: x,
             r: r,
@@ -149,8 +155,8 @@ export class SymmetricalCircleGrid {
         return row;
     }
     
-    addRow(index, row) {
-        this.set.splice((index * this._circlesPerRow) || 0, 0, ...row)
+    addRow(index, row, set) {
+        set.splice((index * this._circlesPerRow) || 0, 0, ...row)
     }
     
     addPartialRow(index, row) {
@@ -162,33 +168,24 @@ export class SymmetricalCircleGrid {
         this.set.clear();
         for (let i = 0; i < this._circlesPerRow; i++) {
             let row = this.createRow(i);
-            this.addRow(i, row)
+            this.addRow(i, row, this.set)
         }
     }
 
     createShadow() {
-        // if (this.shadow.length) {
-        //     console.log('remove')
-        //     this.shadow.remove()
-        //     this.shadow = [];
-        // }
-        this.shadow = this.set.clone()
-        console.log(this.shadow)
-        this.shadow.items.forEach((c, i) => {
-    
-            if (!(i % this._circlesPerRow)) {
-                this.shadowOffset += c.attr('r') / 100 // increase diameter to give depth to shadow
-            }
-            const newRadius = (parseInt(c.attr('r'), 10) * this.shadowOffset) + parseInt(c.attr('r'), 10)
-            const newX = (parseInt(c.attr('cx'), 10) * this.shadowOffset) + parseInt(c.attr('cx'), 10)
-            this.transformIntoShadowCircle(newX, newRadius, c);
+        this.shadow.remove()
+        this.shadowOffset = .2;
+        this.set.items.forEach((c, i) => {
+            const clone = c.clone()
+            const shadowCircle = this.transformIntoShadowCircle(clone, i);
+            this.shadow.push(shadowCircle);
         });
     }
 
 
     increaseCirclesPerRowByOne() {
         //add circle to each row
-        this.moveGrid(this._vMargin/-2, this._hMargin/2)        
+        this.moveGrid(this._vMargin/-2, this._hMargin/2);
         for (let i = parseInt(this._previousCirclesPerRow); i > 0; i--) {
             let partialRow = [];
             let y = this.yOrigin + (this._vMargin * (i));            
@@ -199,7 +196,7 @@ export class SymmetricalCircleGrid {
         }
         // add row
         let row = this.createRow(0)
-        this.addRow(0, row)
+        this.addRow(0, row, this.set);        
     }
 
     decreaseCirclesPerRowByOne() {
@@ -212,8 +209,7 @@ export class SymmetricalCircleGrid {
             const setToRemove = this.set.splice((i*(this._previousCirclesPerRow)), 1)
             setToRemove.remove()
         }
-        this.set.splice(0, this._previousCirclesPerRow).remove()
-        
+        this.set.splice(0, this._previousCirclesPerRow).remove()   
         
     }
     
@@ -231,8 +227,6 @@ export class SymmetricalCircleGrid {
           this.decreaseCirclesPerRowByOne()
         }
     }
-
-
 
     moveGrid(xDelta, yDelta) {
         this.set.forEach((c) => {
