@@ -74,8 +74,6 @@ class App extends Component {
       pathColor: colors.paths,
     }
 
-    console.log(gridProperties)
-
     return (
 
       <div>
